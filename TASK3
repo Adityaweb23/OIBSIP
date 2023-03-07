@@ -1,0 +1,117 @@
+package Aself;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+public class atm {
+
+	public static void main(String[] args) {
+
+		int Account_number;
+		int Pin_code;
+		int Account_balance = 1500;
+		int key;
+		ArrayList<String> Trans_history=new ArrayList<>();
+		Scanner scanner = new Scanner(System.in);
+		int abc;
+		do {
+			System.out.println(" Enter Your Account Number : ");
+			int userAccount_number = scanner.nextInt();
+
+			System.out.println(" Enter Your Pin_code : ");
+			int User_password = scanner.nextInt();
+
+			if (userAccount_number <= 10000 && User_password <= 2000) {
+				System.out.println(" ************* WELCOME TO BANK OF MAHARAHTRA ************* ");
+				abc = 0;
+
+				do {
+					System.out.println(" Select Option : \n 1 - DEPOSITE \n 2 - WTHDRAW \n 3 - TRANSFER \n 4 - TRANSACTION HISTORY \n 5 - LOGOUT");
+
+					key = scanner.nextInt();
+					switch (key) {
+					case 1:
+						System.out.println(" Your Account Balance : " + Account_balance + " \n");
+						System.out.println(" Enter Deposit Amount :  ");
+						int dipamt = scanner.nextInt();
+
+						Account_balance = dipamt + Account_balance;
+
+						System.out.println("\n Your Total Account Balance : " + Account_balance + "\n \n ");
+						String s="Amount deposited Rs " +dipamt;
+						Trans_history.add(s);
+						break;
+					case 2:
+						System.out.println(" Your Account Balance : " + Account_balance + " \n");
+
+						System.out.println(" Enter Withdraw Amount : ");
+						int widamt = scanner.nextInt();
+
+						if (widamt < Account_balance) {
+							System.out.println(" Please Enter Password to Withdraw Money : ");
+							int widpass = scanner.nextInt();
+							if (widpass == User_password) {
+								Account_balance = Account_balance - widamt;
+								System.err.println(" You Withdraw : " + widamt);
+								System.out.println("\n Your Total Account Balance : " + Account_balance + " \n \n ");
+								String s1="Amount Withdraw Rs " +widamt;
+								Trans_history.add(s1);
+							} else {
+								System.err.println(" Invaid Pin_code -- Try Again..!");
+							}
+
+						} else {
+							System.err.println("Insufficient Balance... \n \n");
+						}
+						break;
+					case 3:
+
+						System.out.println("\n Enter Beneficiary Account Number :");
+						int benacc = scanner.nextInt();
+						System.out.println("\n Enter Sending Amount :");
+						int benamt = scanner.nextInt();
+						if (benamt < Account_balance) {
+							int otp = (int) ((Math.random() * 9000) + 1000);
+							System.out.println("\n Your OTP is ---> " + otp);
+
+							System.out.println("\n Enter OTP : ");
+							int userotp = scanner.nextInt();
+
+							if (userotp == otp) {
+								Account_balance = Account_balance - benamt;
+								System.out.println("\n Your Total Account Balance : " + Account_balance + " \n \n ");
+							} else {
+								System.err.println(" Invaid Pin_code -- Try Again..!");
+							}
+							String s2="Amount TrTrans_historyfered Rs " +benamt;
+							Trans_history.add(s2);
+						} else {
+							System.err.println("Insufficient Balance... \n \n");
+						}
+
+						break;
+					case 4:
+						System.out.println("Your TrTrans_historyactions History is");
+						for(String it:Trans_history)System.out.println(it);
+						break;
+					case 5:
+						System.err.println("\n Log-out Successfully \n Thank you.....");
+						System.exit(0);
+						break;
+
+					default:
+						break;
+					}
+
+				} while (true);
+
+			} else {
+				System.err.println("Invalid Credentials \n Try Again .... \n \n");
+				abc = 1;
+			}
+
+		} while (abc > 0);
+		scanner.close();
+	}
+}
